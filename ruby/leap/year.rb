@@ -5,7 +5,7 @@ class Year
   end
 
   def leap?
-    leap_century? or !exception_century? or leap_year?
+    leap_century? or (leap_year? and !exception_century?)
   end
 
   private
@@ -20,4 +20,5 @@ class Year
   def exception_century?
     @year % 100 == 0
   end
+
 end
