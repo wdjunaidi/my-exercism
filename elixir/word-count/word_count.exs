@@ -20,15 +20,7 @@ defmodule Words do
   end
 
   defp word_count(word, acc) do
-    {_, result} = Map.get_and_update(acc, word, &increment/1)
-    result
-  end
-
-  defp increment(x) do
-    cond do
-      is_nil(x) -> {nil, 1}
-      true -> {x, x + 1}
-    end
+    Map.update(acc, word, 1, &(&1 + 1))
   end
 
 end
