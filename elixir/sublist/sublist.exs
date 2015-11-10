@@ -4,6 +4,21 @@ defmodule Sublist do
   and if not whether it is equal or unequal to the second list.
   """
   def compare(a, b) do
+    cond do
+      equal?(a, b)   -> :equal
+      sublist?(a, b) -> :sublist
+      sublist?(b, a) -> :superlist
+      true           -> :unequal 
+    end
+  end
 
+  defp equal?(a, b), do: a === b
+
+  defp sublist?(_, [nil]), do: true
+  defp sublist?(a, b) when length(a) >= length(b), do: false
+  defp sublist?(a, b) do
+    limit = length(a)
+    range_end = length(b) - limit
+    Enum.any?(0..range_end, fn x -> Enum.slice(b, x, limit) === a end)
   end
 end
