@@ -14,7 +14,6 @@ defmodule Sublist do
 
   defp equal?(a, b), do: a === b
 
-  defp sublist?(_, [nil]), do: true
   defp sublist?(a, b) when length(a) >= length(b), do: false
   defp sublist?(a, b) do
     limit = length(a)
