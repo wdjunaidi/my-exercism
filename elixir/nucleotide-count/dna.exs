@@ -14,7 +14,7 @@ defmodule DNA do
   """
   @spec count([char], char) :: non_neg_integer
   def count(strand, nucleotide) do
-    Enum.reduce(strand, 0, fn(x, acc) -> if(x == nucleotide, do: acc+1, else: acc) end)
+    nucleotide_counts(strand)[nucleotide] || 0
   end
 
 
