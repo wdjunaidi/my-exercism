@@ -9,12 +9,9 @@ defmodule Anagram do
   end
 
   defp anagram?(a, b) when length(a) != length(b), do: false
+  defp anagram?(a, b) when a == b, do: false
   defp anagram?(a, b) do
-    if a == b do
-      false
-    else 
-      transform_word(a) == transform_word(b)
-    end
+    transform_word(a) == transform_word(b)
   end
   
   defp transform_word(word) do
