@@ -13,8 +13,8 @@ defmodule DNA do
     [ transcribe(head) | to_rna(tail) ]
   end
 
-  defp transcribe(char) when char == 71, do: 67
-  defp transcribe(char) when char == 67, do: 71
-  defp transcribe(char) when char == 84, do: 65
-  defp transcribe(char) when char == 65, do: 85
+  defp transcribe(?G), do: ?C
+  defp transcribe(?A), do: ?U
+  defp transcribe(?C), do: ?G
+  defp transcribe(?T), do: ?A
 end
