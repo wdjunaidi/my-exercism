@@ -7,12 +7,10 @@ defmodule Acronym do
   def abbreviate(string) do
     string
     |> String.split(~r{[\s-]}, trim: true)
-    |> Enum.map_join(&(String.capitalize(&1)))
-    |> String.to_charlist
-    |> Enum.reduce(fn (ch, acc) -> if (is_upcase(ch) end)
-  end
-
-  defp is_upcase(char) do
-    String.upcase(char) == char
+    |> Enum.map(fn (elem) -> [String.capitalize(String.first(elem))] ++ [String.slice(elem, 1..-1)] end)
+    |> List.flatten
+    |> List.to_string
+    |> (&(Regex.scan(~r/[A-Z]/, &1))).()
+    |> List.to_string
   end
 end
