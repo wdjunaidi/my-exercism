@@ -11,20 +11,20 @@ defmodule Raindrops do
   @spec convert(pos_integer) :: String.t
   def convert(number) do
     factor_map = [{3, "Pling"}, {5, "Plang"}, {7, "Plong"}]
-    has_factors = Enum.map(factor_map, fn ({factor, word}) -> {rem(number, factor) == 0, word} end)
-    if (in_set_factor(has_factors)) do
-      rain_drop_sounds(has_factors)
-    else
-      Integer.to_string(number)
-    end
+    factor_map
+    |> Enum.map_join(fn({k, v}) -> rain_drop_sound(number, k, v) end)
+    |> rain_drop_sounds(number)
   end
 
-  @spec in_set_factor(list) :: boolean
-  defp in_set_factor(data) do
-    Enum.reduce(data, false, fn ({match, _}, acc) -> match || acc end)
+  defp rain_drop_sound(number, factor, sound) do
+    if(rem(number, factor) == 0, do: sound, else: "")
   end
 
-  defp rain_drop_sounds(data) do
-    Enum.map_join(data, fn ({match, word}) -> if(match, do: word) end)
+  defp rain_drop_sounds("", number) do
+    Integer.to_string(number)
+  end
+
+  defp rain_drop_sounds(sounds, _) do
+    sounds
   end
 end
