@@ -8,11 +8,18 @@ defmodule RunLengthEncoder do
   """
   @spec encode(String.t) :: String.t
   def encode(string) do
-
+    Regex.scan(~r/(.)\1*/, string)
+    |> Enum.map_join( fn([h|t]) -> Integer.to_string(String.length(h)) <> List.first(t) end)
   end
 
   @spec decode(String.t) :: String.t
   def decode(string) do
+    Regex.scan(~r/(\d+)(\w)/, string, capture: :all_but_first)
+    |> Enum.map_join(&decode_char/1)
+  end
 
+  defp decode_char([h | t]) do
+    {length, _} = Integer.parse(h)
+    String.duplicate(List.first(t), length)
   end
 end
