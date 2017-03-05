@@ -5,7 +5,16 @@ defmodule StringSeries do
   return an empty list.
   """
   @spec slices(s :: String.t(), size :: integer) :: list(String.t())
-  def slices(_s, _size) do
-  end
-end
+  def slices(_s, size) when size < 1, do: []
 
+  @spec slices(s :: String.t(), size :: integer) :: list(String.t())
+  def slices(s, size) do
+    if String.length(s) < size do
+      []
+    else
+      tail = String.slice(s, 1..-1)
+      [String.slice(s, 0, size)] ++ slices(tail, size)
+    end
+  end
+
+end
