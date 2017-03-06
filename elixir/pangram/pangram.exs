@@ -11,8 +11,23 @@ defmodule Pangram do
       true
 
   """
+  @alphabets MapSet.new(String.to_charlist("abcdefghijklmnopqrstuvwxyz"))
 
   @spec pangram?(String.t) :: boolean
+  def pangram?(""), do: false
+
   def pangram?(sentence) do
+    sentence
+    |> normalize_sentence
+    |> String.to_charlist
+    |> MapSet.new
+    |> MapSet.intersection(@alphabets)
+    |> MapSet.equal?(@alphabets)
+  end
+
+  defp normalize_sentence(sentence) do
+    sentence
+    |> String.downcase
+    |> String.replace(~r/(?<=[\w\s])[\p{P}\$\^]+(?!\w+)/, "")
   end
 end
