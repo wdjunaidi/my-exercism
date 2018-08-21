@@ -23,12 +23,12 @@ defmodule Roman do
   end
 
   defp translate(number, scale, convertmap) do
-    cond do
-      div(number, scale) == 9 -> convertmap[9] <> numerals(number - (9 * scale))
-      div(number, scale) >= 5 -> convertmap[5] <> numerals(number - (5 * scale))
-      div(number, scale) == 4 -> convertmap[4] <> numerals(number - (4 * scale))
-      div(number, scale) >= 1 -> convertmap[1] <> numerals(number - (1 * scale))
-      true -> numerals(number)
+    case div(number, scale) do
+      x when x == 9 -> convertmap[9] <> numerals(number - (9 * scale))
+      x when x >= 5 -> convertmap[5] <> numerals(number - (5 * scale))
+      x when x == 4 -> convertmap[4] <> numerals(number - (4 * scale))
+      x when x >= 1 -> convertmap[1] <> numerals(number - (1 * scale))
+      _ -> numerals(number)
     end
   end
 
