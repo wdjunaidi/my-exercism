@@ -10,12 +10,16 @@ defmodule Roman do
   @spec numerals(pos_integer) :: String.t()
   def numerals(number) do
     cond do
-      number >= 1000        -> "M" <> numerals(number - 1000)
+      number >= 1000        -> translateThousandth(number)
       div(number, 100) >= 1 -> translate(number, 100, @hundredth)
       div(number,  10) >= 1 -> translate(number,  10, @tenth)
       div(number,   1) >= 1 -> translate(number,   1, @nth)
       true -> ""
     end
+  end
+
+  defp translateThousandth(number) do
+    "M" <> numerals(number - 1000)
   end
 
   defp translate(number, scale, convertmap) do
