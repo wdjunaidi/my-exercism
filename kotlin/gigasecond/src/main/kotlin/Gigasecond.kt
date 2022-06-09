@@ -1,8 +1,9 @@
-import java.time.LocalDateTime
+import java.time.*
+import java.time.temporal.*
 
-class Gigasecond {
+class Gigasecond(initialTime: LocalDateTime) {
 
-    // TODO: Implement proper constructor
+    constructor(localDate : LocalDate): this(LocalDateTime.of(localDate, LocalTime.MIN))
 
-    val date: LocalDateTime = TODO("Implement this getter to complete the task")
+    val date: LocalDateTime = initialTime.plus(1_000_000_000, ChronoUnit.SECONDS)
 }
